@@ -1,0 +1,12 @@
+def color(G,cols):
+    N=list(G); A={}
+    def go(i=0):
+        if i==len(N): return A.copy()
+        n=N[i]
+        for c in cols:
+            if any(A.get(nb)==c for nb in G[n]): continue
+            A[n]=c; r=go(i+1)
+            if r: return r
+            del A[n]
+    return go()
+print(color({'WA':['NT','SA'],'NT':['WA','SA','Q'],'SA':['WA','NT','Q','NSW','V'],'Q':['NT','SA','NSW'],'NSW':['Q','SA','V'],'V':['SA','NSW'],'T':[]},['r','g','b']))

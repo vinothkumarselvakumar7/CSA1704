@@ -1,0 +1,18 @@
+import heapq
+def astar(s,g,W=5,H=5):
+    h=lambda n:abs(n[0]-g[0])+abs(n[1]-g[1])
+    pq=[(h(s),0,s)]; gscore={s:0}; par={s:None}
+    while pq:
+        _,_,u=heapq.heappop(pq)
+        if u==g:
+            p=[]; cur=u
+            while cur: p.append(cur); cur=par[cur]
+            return list(reversed(p))
+        x,y=u
+        for dx,dy in [(-1,0),(1,0),(0,-1),(0,1)]:
+            nx,ny=x+dx,y+dy
+            if 0<=nx<W and 0<=ny<H:
+                v=(nx,ny); ng=gscore[u]+1
+                if v not in gscore or ng<gscore[v]:
+                    gscore[v]=ng; par[v]=u; heapq.heappush(pq,(ng+h(v),ng,v))
+print(astar((0,0),(4,4)))

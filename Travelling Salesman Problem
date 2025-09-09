@@ -1,0 +1,19 @@
+def held(d):
+    n=len(d); C={}
+    for k in range(1,n): C[(1<<k,k)]=(d[0][k],0)
+    for s in range(1<<n):
+        for k in range(1,n):
+            if not s&(1<<k): continue
+            prev=s^(1<<k); best=None
+            for m in range(1,n):
+                if not prev&(1<<m) or (prev,m) not in C: continue
+                v=C[(prev,m)][0]+d[m][k]
+                if best is None or v<best[0]: best=(v,m)
+            if best: C[(s,k)]=best
+    full=(1<<n)-1; ans=None
+    for k in range(1,n):
+        if (full,k) in C:
+            v=C[(full,k)][0]+d[k][0]
+            if ans is None or v<ans[0]: ans=(v,k)
+    return ans
+print(held([[0,10,15,20],[10,0,35,25],[15,35,0,30],[20,25,30,0]]))

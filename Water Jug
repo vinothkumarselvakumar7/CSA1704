@@ -1,0 +1,15 @@
+from collections import deque
+def water(a,b,t):
+    q=deque([(0,0)]);par={(0,0):None}
+    while q:
+        x,y=q.popleft()
+        if x==t or y==t:
+            p=[]; cur=(x,y)
+            while cur: p.append(cur); cur=par[cur]
+            return list(reversed(p))
+        S={(a,y),(x,b),(0,y),(x,0)}
+        space=min(a-x,b-y); S.add((x+space,y-space))
+        space=min(x,b-y); S.add((x-space,y+space))
+        for s in S:
+            if s not in par: par[s]=(x,y); q.append(s)
+if __name__=='__main__': print(water(4,3,2))

@@ -1,0 +1,26 @@
+import heapq
+G=tuple(range(1,9))+(0,)
+def nbs(s):
+    i=s.index(0); x,y=divmod(i,3)
+    for dx,dy in [(-1,0),(1,0),(0,-1),(0,1)]:
+        nx,ny=x+dx,y+dy
+        if 0<=nx<3:
+            if 0<=ny<3:
+                t=list(s); j=nx*3+ny; t[i],t[j]=t[j],t[i]; yield tuple(t)
+def m(s): return sum(abs((v-1)//3 - i//3)+abs((v-1)%3 - i%3) for i,v in enumerate(s) if v)
+def astar(s):
+    pq=[(m(s),0,s)]; g={s:0}; p={s:None}
+    while pq:
+        _,_,u=heapq.heappop(pq)
+        if u==G:
+            path=[] 
+            while u: path.append(u); u=p[u]
+            return list(reversed(path))
+        for v in nbs(u):
+            ng=g[u]+1
+            if v not in g or ng<g[v]:
+                g[v]=ng; p[v]=u; heapq.heappush(pq,(ng+m(v),ng,v))
+if __name__=='__main__':
+    for row in astar((1,2,3,4,0,6,7,5,8)): print(row[0:3],row[3:6],row[6:9])
+
+

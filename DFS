@@ -1,0 +1,7 @@
+def dfs(g,s,vis=None):
+    if vis is None: vis=set()
+    vis.add(s); o=[s]
+    for v in g.get(s,[]):
+        if v not in vis: o+=dfs(g,v,vis)
+    return o
+print(dfs({'A':['B','C'],'B':['D'],'C':['E']},'A'))

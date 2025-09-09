@@ -1,0 +1,17 @@
+from collections import deque
+def solve():
+    q=deque([(3,3,0)]); par={(3,3,0):None}; moves=[(1,0),(2,0),(0,1),(0,2),(1,1)]
+    while q:
+        ml,cl,boat=q.popleft()
+        if (ml,cl,boat)==(0,0,1):
+            p=[]; cur=(0,0,1)
+            while cur: p.append(cur); cur=par[cur]
+            return list(reversed(p))
+        for dm,dc in moves:
+            if boat==0: nml,ncl,nb=ml-dm,cl-dc,1
+            else: nml,ncl,nb=ml+dm,cl+dc,0
+            if not (0<=nml<=3 and 0<=ncl<=3): continue
+            if (nml>0 and nml<ncl) or (3-nml>0 and 3-nml<3-ncl): continue
+            ns=(nml,ncl,nb)
+            if ns not in par: par[ns]=(ml,cl,boat); q.append(ns)
+print(solve())

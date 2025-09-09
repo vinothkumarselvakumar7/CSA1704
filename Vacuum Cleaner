@@ -1,0 +1,16 @@
+from collections import deque
+def solve(a,b,ag='A'):
+    q=deque([(a,b,ag)]); par={(a,b,ag):None}
+    while q:
+        A,B,agent=q.popleft()
+        if (A,B)==(0,0):
+            p=[]; cur=(A,B,agent)
+            while cur: p.append(cur); cur=par[cur]
+            return list(reversed(p))
+        acts=[]
+        if agent=='A' and A: acts.append((0,B,'A'))
+        if agent=='B' and B: acts.append((A,0,'B'))
+        acts.append((A,B,'B' if agent=='A' else 'A'))
+        for s in acts:
+            if s not in par: par[s]=(A,B,agent); q.append(s)
+print(solve(1,1))

@@ -1,0 +1,9 @@
+from collections import deque
+def bfs(g,s):
+    q=deque([s]); vis={s}; out=[]
+    while q:
+        u=q.popleft(); out.append(u)
+        for v in g.get(u,[]): 
+            if v not in vis: vis.add(v); q.append(v)
+    return out
+print(bfs({'A':['B','C'],'B':['D'],'C':['E']},'A'))

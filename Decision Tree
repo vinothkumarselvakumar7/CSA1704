@@ -1,0 +1,29 @@
+import math
+from collections import defaultdict
+def ent(rows,t):
+    c=defaultdict(int)
+    for r in rows: c[r[t]]+=1
+    e=0; n=len(rows)
+    for v in c.values(): p=v/n; e-=p*math.log2(p)
+    return e
+def id3(rows,attrs,t):
+    vals=set(r[t] for r in rows)
+    if len(vals)==1: return ('L',next(iter(vals)))
+    if not attrs:
+        c=defaultdict(int)
+        for r in rows: c[r[t]]+=1
+        return ('L',max(c,key=c.get))
+    base=ent(rows,t); best=None; bg=-1
+    for a in attrs:
+        parts=defaultdict(list)
+        for r in rows: parts[r[a]].append(r)
+        ne=sum((len(v)/len(rows))*ent(v,t) for v in parts.values())
+        g=base-ne
+        if g>bg: bg=g; best=a
+    tree=('A',best,{})
+    rem=[x for x in attrs if x!=best]
+    parts=defaultdict(list)
+    for r in rows: parts[r[best]].append(r)
+    for k,v in parts.items(): tree[2][k]=id3(v,rem,t)
+    return tree
+print(id3([{'O':'S','T':'H','P':'N'},{'O':'S','T':'H','P':'N'},{'O':'O','T':'H','P':'Y'}],['O','T'],'P'))

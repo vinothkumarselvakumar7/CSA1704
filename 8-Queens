@@ -1,0 +1,10 @@
+def queens(n=8):
+    sol=[]; b=[-1]*n; C=set();D1=set();D2=set()
+    def go(r=0):
+        if r==n: sol.append(b.copy()); return
+        for c in range(n):
+            if c in C or r-c in D1 or r+c in D2: continue
+            C.add(c); D1.add(r-c); D2.add(r+c); b[r]=c
+            go(r+1); C.remove(c); D1.remove(r-c); D2.remove(r+c)
+    go(); return sol
+if __name__=='__main__': print('\n'.join(''.join('Q' if i==r else '.' for i in range(8)) for r in queens()[0]))

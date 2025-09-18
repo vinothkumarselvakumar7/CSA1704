@@ -1,0 +1,17 @@
+edge(a, b, 3).
+edge(a, c, 1).
+edge(c, d, 2).
+edge(b, d, 4).
+
+best_first(Start, Goal, Path) :-
+    bfs([[Start]], Goal, Path).
+
+bfs([[Goal|T]|_], Goal, [Goal|T]).
+bfs([ [Node|Path] | Rest ], Goal, FinalPath) :-
+    findall([Next,Node|Path],
+            (edge(Node, Next, _), \+ member(Next,[Node|Path])),
+            NewPaths),
+    append(Rest, NewPaths, Paths),
+    bfs(Paths, Goal, FinalPath).
+Query:
+?- best_first(a, d, Path).

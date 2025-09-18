@@ -1,0 +1,6 @@
+teaches(mr_smith, math101, alice).
+teaches(mr_smith, math101, bob).
+teaches(ms_clark, phy102, john).
+
+% Query: find teacher for a student
+?- teaches(Teacher, SubCode, alice).

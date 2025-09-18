@@ -1,0 +1,5 @@
+person(john, '2000-05-10').
+person(mary, '1998-11-23').
+person(alex, '2002-01-15').
+Query:
+?- person(Name, DOB).

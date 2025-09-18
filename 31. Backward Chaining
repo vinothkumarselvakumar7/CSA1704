@@ -1,0 +1,5 @@
+knows(john, prolog).
+knows(john, ai).
+expert(X) :- knows(X, prolog), knows(X, ai).
+Query:
+?- expert(john).

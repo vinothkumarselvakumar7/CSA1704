@@ -1,0 +1,8 @@
+vowel(a). vowel(e). vowel(i). vowel(o). vowel(u).
+
+count_vowels([], 0).
+count_vowels([H|T], Count) :-
+    count_vowels(T, Count1),
+    (vowel(H) -> Count is Count1 + 1 ; Count = Count1).
+Query:
+?- count_vowels([a,b,e,d,i], N). → N = 3.

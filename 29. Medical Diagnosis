@@ -1,0 +1,9 @@
+symptom(flu, fever).
+symptom(flu, cough).
+symptom(cold, sneezing).
+symptom(cold, runnynose).
+
+diagnose(Disease, Symptom) :-
+    symptom(Disease, Symptom).
+Query:
+?- diagnose(flu, Symptom).

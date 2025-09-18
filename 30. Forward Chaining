@@ -1,0 +1,8 @@
+fact(a).
+rule(b) :- fact(a).
+rule(c) :- rule(b).
+
+forward_chain(X) :- rule(X).
+Query:
+?- forward_chain(c).
+

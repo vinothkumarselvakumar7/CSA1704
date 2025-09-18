@@ -1,0 +1,4 @@
+match_pattern([], []).
+match_pattern([H|T1], [H|T2]) :- match_pattern(T1, T2).
+Query:
+?- match_pattern([a,b,c],[a,b,c]).

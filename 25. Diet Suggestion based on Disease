@@ -1,0 +1,9 @@
+diet(diabetes, 'Low sugar, high fiber diet').
+diet(hypertension, 'Low salt, more vegetables').
+diet(anemia, 'Iron-rich foods').
+
+suggest_diet(Disease) :-
+    diet(Disease, Diet),
+    write('Suggested diet: '), writeln(Diet).
+Query:
+?- suggest_diet(diabetes).
